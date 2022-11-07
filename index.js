@@ -25,7 +25,7 @@ const verifyUrl = (url, done) => {
   let urlObj
   try {
     urlObj = new URL(url)
-    if(urlObj.protocol != "http:" && urlObj.procotol != "https:"){
+    if(urlObj.protocol != "http:" && urlObj.protocol != "https:"){
       throw "Wrong protocol"
     }
   } catch(error) {
