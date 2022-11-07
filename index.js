@@ -22,14 +22,17 @@ let urlSchema = new mongoose.Schema({
 let Url = new mongoose.model("Url", urlSchema);
 
 const verifyUrl = (url, done) => {
-  let urlWithoutProtocol
+  let urlObj
   try {
-    urlWithoutProtocol = new URL(url).hostname
+    urlObj = new URL(url)
+    if(urlObj.protocol != "http:" && urlObj.procotol != "https:"){
+      throw "Wrong protocol"
+    }
   } catch(error) {
     console.log(error)
     return done(error, url)
   }
-  dns.lookup(urlWithoutProtocol.toString(), function(error){
+  dns.lookup(urlObj.hostname, function(error){
     if(error){
       console.log(error)
       done(error, url)
